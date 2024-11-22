@@ -5,7 +5,7 @@ pragma solidity ^0.8.24;
 import "fhevm/lib/TFHE.sol";
 
 /**
- * @title WealthComparor
+ * @title EncryptedWealthComparator
  * @author em_mutable
  * @notice A contract that determines the richest person among three participants using FHE.
  *         Participants must encrypt their wealth values client-side for submission to the
@@ -14,7 +14,7 @@ import "fhevm/lib/TFHE.sol";
  *
  * @dev Uses TFHE library for fully homomorphic encryption operations to maintain privacy.
  */
-contract WealthComparor {
+contract EncryptedWealthComparator {
     // store the richest address
     address public richest;
 
@@ -38,20 +38,6 @@ contract WealthComparor {
         // convert the encrypted bytes to euint32
         encryptedWealth[msg.sender] = TFHE.asEuint32(encryptedAmount);
         hasSubmitted[msg.sender] = true;
-    }
-
-    /**
-     * @notice Compares two encrypted wealth amounts to determine which is greater.
-     *
-     * @dev Uses TFHE.gt() for encrypted comparison.
-     *
-     * @param a                 The first encrypted wealth amount to compare.
-     * @param b                 The second encrypted wealth amount to compare.
-     *
-     * @return                  An encrypted boolean indicating if a is greater than b.
-     */
-    function _compareWealth(euint32 a, euint32 b) internal pure returns (ebool) {
-        return TFHE.gt(a, b);
     }
 
     /**
@@ -87,5 +73,19 @@ contract WealthComparor {
                  (TFHE.decrypt(isUser2Richest) ? user2 : user3);
 
         emit RichestFound(richest);
+    }
+
+    /**
+     * @notice Compares two encrypted wealth amounts to determine which is greater.
+     *
+     * @dev Uses TFHE.gt() for encrypted comparison.
+     *
+     * @param a                 The first encrypted wealth amount to compare.
+     * @param b                 The second encrypted wealth amount to compare.
+     *
+     * @return                  An encrypted boolean indicating if a is greater than b.
+     */
+    function _compareWealth(euint32 a, euint32 b) internal pure returns (ebool) {
+        return TFHE.gt(a, b);
     }
 }

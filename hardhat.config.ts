@@ -8,10 +8,9 @@ import { resolve } from "path";
 
 
 import "./tasks/accounts";
-import "./tasks/deployERC20";
+import "./tasks/deploy";
 import "./tasks/getEthereumAddress";
 import "./tasks/mint";
-
 
 const dotenvConfigPath: string = process.env.DOTENV_CONFIG_PATH || "./.env";
 dotenvConfig({ path: resolve(__dirname, dotenvConfigPath) });
@@ -36,6 +35,7 @@ const chainIds = {
   "polygon-mumbai": 80001,
   sepolia: 11155111,
   zama: 8009,
+  rivest: 21097,
 };
 
 function getChainConfig(chain: keyof typeof chainIds): NetworkUserConfig {
@@ -55,6 +55,9 @@ function getChainConfig(chain: keyof typeof chainIds): NetworkUserConfig {
       break;
     case "zama":
       jsonRpcUrl = "https://devnet.zama.ai";
+      break;
+    case "rivest":
+      jsonRpcUrl = "https://validator.rivest.inco.org/";
       break;
   }
   return {
@@ -100,6 +103,7 @@ const config: HardhatUserConfig = {
     bsc: getChainConfig("bsc"),
     inco: getChainConfig("inco"),
     zama: getChainConfig("zama"),
+    rivest: getChainConfig("rivest"),
     local: getChainConfig("local"),
   },
   paths: {

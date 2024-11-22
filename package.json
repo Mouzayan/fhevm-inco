@@ -79,7 +79,7 @@
     "test": "hardhat test",
     "task:getEthereumAddress": "hardhat task:getEthereumAddress",
     "task:mint": "hardhat task:mint",
-    "task:deployERC20": "hardhat task:deployERC20",
+    "task:deploy": "hardhat task:deploy",
     "task:accounts": "hardhat task:accounts"
   },
   "dependencies": {
