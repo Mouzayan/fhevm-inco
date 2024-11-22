@@ -1,10 +1,13 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
 
+
+
 import { createInstances } from "../instance";
 import { getSigners } from "../signers";
 import { createTransaction } from "../utils";
 import { deployEncryptedWealthComparatorFixture } from "./EncryptedWealthComparator.fixture";
+
 
 // to run: npx hardhat test --network rivest
 describe("EncryptedWealthComparator", function () {
@@ -29,10 +32,7 @@ describe("EncryptedWealthComparator", function () {
     const carolWealth = this.instances.carol.encrypt32(750);
 
     // submit encrypted wealth values
-    const aliceTx = await createTransaction(
-      this.wealthComparator["submitWealth(bytes)"], // specify the function signature
-      aliceWealth,
-    );
+    const aliceTx = await createTransaction(this.wealthComparator["submitWealth(bytes)"], aliceWealth);
     await aliceTx.wait();
 
     const bobTx = await createTransaction(this.wealthComparator["submitWealth(bytes)"], bobWealth);
