@@ -2,9 +2,12 @@ import { Signer } from "ethers";
 import fhevmjs, { FhevmInstance } from "fhevmjs";
 import { ethers as hethers } from "hardhat";
 
+
+
 import { FHE_LIB_ADDRESS } from "./generated";
 import type { Signers } from "./signers";
 import { FhevmInstances } from "./types";
+
 
 let publicKey: string;
 let chainId: number;
@@ -24,9 +27,10 @@ export const createInstances = async (
     // Get blockchain public key
     const ret = await provider.call({
       to: FHE_LIB_ADDRESS,
-      // first four bytes of keccak256('fhePubKey(bytes1)') + 1 byte for library
-      data: "0xd9d47bb001",
+      // keccak256("publicKey()")
+      data: "0x0e3dd22e",
     });
+
     const decoded = ethers.AbiCoder.defaultAbiCoder().decode(["bytes"], ret);
     publicKey = decoded[0];
   }

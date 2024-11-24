@@ -12,6 +12,7 @@ import "./tasks/deploy";
 import "./tasks/getEthereumAddress";
 import "./tasks/mint";
 
+
 const dotenvConfigPath: string = process.env.DOTENV_CONFIG_PATH || "./.env";
 dotenvConfig({ path: resolve(__dirname, dotenvConfigPath) });
 
@@ -57,7 +58,7 @@ function getChainConfig(chain: keyof typeof chainIds): NetworkUserConfig {
       jsonRpcUrl = "https://devnet.zama.ai";
       break;
     case "rivest":
-      jsonRpcUrl = "https://validator.rivest.inco.org/";
+      jsonRpcUrl = "https://validator.rivest.inco.org";
       break;
   }
   return {
@@ -72,7 +73,7 @@ function getChainConfig(chain: keyof typeof chainIds): NetworkUserConfig {
 }
 
 const config: HardhatUserConfig = {
-  defaultNetwork: "local",
+  defaultNetwork: "hardhat",
   namedAccounts: {
     deployer: 0,
   },

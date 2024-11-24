@@ -9,7 +9,7 @@ import { createTransaction } from "../utils";
 import { deployEncryptedWealthComparatorFixture } from "./EncryptedWealthComparator.fixture";
 
 
-// to run: npx hardhat test --network rivest
+// to run: npx hardhat test test/encryptedWealthComparator/EncryptedWealthComparator.ts --network rivest
 describe("EncryptedWealthComparator", function () {
   before(async function () {
     this.signers = await getSigners(ethers);
